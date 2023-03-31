@@ -1,23 +1,21 @@
 function solution(inputString) {
-  let text = inputString.split("");
-  let same = [];
+  let charCount = {};
 
-  let half = Math.floor(text.length / 2);
-  console.log(half);
-
-  for (let i = 0; i < text.length; i++) {
-    let element = text[i];
-    text.splice(i, 1);
-
-    if (text.includes(element)) {
-      same.push(element);
-      text.splice(text.indexOf(element), 1);
-    }
-    console.log(same, text);
+  for (let i = 0; i < inputString.length; i++) {
+    let char = inputString.charAt(i);
+    charCount[char] = (charCount[char] || 0) + 1;
   }
 
-  console.log(text.length);
-  if (same.length === half) return true;
+  let oddCount = 0;
 
-  return false;
+  for (let count of Object.values(charCount)) {
+    if (count % 2 !== 0) {
+      oddCount++;
+    }
+    if (oddCount > 1) {
+      return false;
+    }
+  }
+
+  return true;
 }
